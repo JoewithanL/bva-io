@@ -9,6 +9,7 @@
 %   filename       - file name
 %
 % Author: Arnaud Delorme, SCCN, INC, UCSD, 2005-
+% 2020-04-09, Joel P Diaz - modified to write .eeg instead of .dat files.
 
 % Copyright (C) 2005, Arnaud Delorme, SCCN, INC, UCSD, arno@salk.edu
 %
@@ -49,7 +50,7 @@ if ~isempty(posdot), filename = filename(1:posdot(end)-1); end;
 % ----------------
 fid1 = fopen( [ filename '.vhdr' ], 'w' );
 fid2 = fopen( [ filename '.vmrk' ], 'w' );
-fid3 = fopen( [ filename '.dat'  ], 'wb', 'ieee-le');
+fid3 = fopen( [ filename '.eeg'  ], 'wb', 'ieee-le');
 [ tmppath basename ] = fileparts( filename );
 
 % write data
@@ -64,7 +65,7 @@ fprintf(fid1, 'Brain Vision Data Exchange Header File Version 1.0\n');
 fprintf(fid1, '; Data created from the EEGLAB software\n');
 fprintf(fid1, '\n');
 fprintf(fid1, '[Common Infos]\n');
-fprintf(fid1, 'DataFile=%s\n', [ basename '.dat'  ]);
+fprintf(fid1, 'DataFile=%s\n', [ basename '.eeg'  ]);
 if ~isempty(EEG.event)
     fprintf(fid1, 'MarkerFile=%s\n', [ basename '.vmrk' ]);
 end;
@@ -116,7 +117,7 @@ if ~isempty(EEG.event)
     fprintf(fid2, '; The channel numbers are related to the channels in the exported file.\n');
     fprintf(fid2, '\n');
     fprintf(fid2, '[Common Infos]\n');
-    fprintf(fid2, 'DataFile=%s\n', [ basename '.dat'  ]);
+    fprintf(fid2, 'DataFile=%s\n', [ basename '.eeg'  ]);
     fprintf(fid2, '\n');
     fprintf(fid2, '[Marker Infos]\n');
     fprintf(fid2, '; Each entry: Mk<Marker number>=<Type>,<Description>,<Position in data points>,\n');
